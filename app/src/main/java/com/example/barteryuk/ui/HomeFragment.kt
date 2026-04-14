@@ -29,16 +29,26 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = BarterAdapter(ArrayList()) { item ->
+        // Adapter untuk Rekomendasi (Horizontal)
+        val recommendationAdapter = BarterAdapter(ArrayList()) { item ->
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(item)
             findNavController().navigate(action)
         }
+        binding.rvRecommendations.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvRecommendations.adapter = recommendationAdapter
 
-        binding.rvBarter.layoutManager = LinearLayoutManager(context)
-        binding.rvBarter.adapter = adapter
+        // Adapter untuk Semua Barang (Grid)
+        val allItemsAdapter = BarterAdapter(ArrayList()) { item ->
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(item)
+            findNavController().navigate(action)
+        }
+        binding.rvAllItems.layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 2)
+        binding.rvAllItems.adapter = allItemsAdapter
 
         viewModel.barterItems.observe(viewLifecycleOwner) { items ->
-            adapter.updateData(items)
+            // Gunakan 3 barang pertama untuk rekomendasi sebagai dummy
+            recommendationAdapter.updateData(items.take(3))
+            allItemsAdapter.updateData(items)
         }
 
         binding.fabAdd.setOnClickListener {

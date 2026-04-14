@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.barteryuk.R
 import com.example.barteryuk.adapter.BarterAdapter
 import com.example.barteryuk.databinding.FragmentProfileBinding
 import com.example.barteryuk.model.BarterItem
@@ -34,13 +35,25 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.rvMyItems.layoutManager = LinearLayoutManager(context)
+        binding.rvMyItems.layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 3)
         binding.rvMyItems.adapter = adapter
 
+        viewModel.currentUser.observe(viewLifecycleOwner) { user ->
+            user?.let {
+                binding.tvUserName.text = it.name
+                binding.tvUserEmail.text = it.email
+            }
+        }
+
         viewModel.barterItems.observe(viewLifecycleOwner) { items ->
-            // Simulasikan daftar barang milik user (misal: ambil dari list yang ada)
-            val userItems = items.take(1) 
+            // Simulasikan daftar barang milik user (misal: ambil 2 barang terakhir)
+            val userItems = items.takeLast(2) 
             adapter.updateData(userItems)
+        }
+
+        binding.btnLogout.setOnClickListener {
+            viewModel.logout()
+            findNavController().navigate(R.id.action_profileFragment_to_welcomeFragment)
         }
     }
 

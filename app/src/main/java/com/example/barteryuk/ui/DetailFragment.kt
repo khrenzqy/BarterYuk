@@ -28,13 +28,15 @@ class DetailFragment : Fragment() {
 
         val item = args.item
         binding.tvDetailName.text = item.name
-        binding.tvDetailCategory.text = item.category
-        binding.tvDetailValue.text = "Estimasi Nilai: ${item.estimatedValue}"
+        binding.tvDetailCategory.text = "Kategori: ${item.category}"
+        binding.tvDetailValue.text = "Rp ${item.estimatedValue}"
         binding.tvDetailCondition.text = "Kondisi: ${item.condition}"
         binding.tvDetailDescription.text = item.description
 
         binding.btnBarter.setOnClickListener {
             Toast.makeText(requireContext(), "Permintaan barter untuk ${item.name} telah diajukan!", Toast.LENGTH_LONG).show()
+            binding.btnBarter.isEnabled = false
+            binding.btnBarter.text = "Permintaan Terkirim"
         }
     }
 
