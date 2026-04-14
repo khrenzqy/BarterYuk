@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.barteryuk.adapter.BarterAdapter
 import com.example.barteryuk.databinding.FragmentProfileBinding
@@ -29,7 +30,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = BarterAdapter(ArrayList()) { item ->
-            // Detail logic or just display
+            val action = ProfileFragmentDirections.actionProfileFragmentToDetailFragment(item)
+            findNavController().navigate(action)
         }
 
         binding.rvMyItems.layoutManager = LinearLayoutManager(context)
