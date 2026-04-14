@@ -18,10 +18,12 @@
             android:theme="@style/Theme.BarterYuk">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddItemActivity" android:label="Tambah Barang" />
+        <activity android:name=".DetailActivity" android:label="Detail Barang" />
+        <activity android:name=".ProfileActivity" android:label="Profil Saya" />
     </application>
 
 </manifest>
