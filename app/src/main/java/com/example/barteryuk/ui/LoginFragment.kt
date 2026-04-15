@@ -33,11 +33,18 @@ class LoginFragment : Fragment() {
             val password = binding.etPassword.text.toString()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                viewModel.login(email, "User BarterYuk") // Dummy name
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                if (viewModel.login(email, password)) {
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                } else {
+                    Toast.makeText(requireContext(), "Email atau password salah", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(requireContext(), "Harap isi semua kolom", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.tvToRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 

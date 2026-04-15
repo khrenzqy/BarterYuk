@@ -8,6 +8,7 @@ import com.example.barteryuk.model.BarterItem
 
 class BarterAdapter(
     private val listBarter: ArrayList<BarterItem>,
+    private val showOwner: Boolean = true,
     private val onItemClick: (BarterItem) -> Unit
 ) : RecyclerView.Adapter<BarterAdapter.BarterViewHolder>() {
 
@@ -18,6 +19,14 @@ class BarterAdapter(
                 tvItemName.text = barterItem.name
                 tvItemCategory.text = barterItem.category
                 tvItemValue.text = "Est. Nilai: ${barterItem.estimatedValue}"
+                tvItemCondition.text = barterItem.condition
+                
+                if (showOwner) {
+                    tvItemOwner.visibility = android.view.View.VISIBLE
+                    tvItemOwner.text = "Oleh: ${barterItem.ownerEmail?.split("@")?.get(0) ?: "Anonim"}"
+                } else {
+                    tvItemOwner.visibility = android.view.View.GONE
+                }
                 
                 root.setOnClickListener {
                     onItemClick(barterItem)

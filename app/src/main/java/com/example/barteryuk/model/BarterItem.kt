@@ -10,5 +10,6 @@ data class BarterItem(
     val estimatedValue: String,
     val category: String,
     val condition: String = "Baru",
-    var status: String = "Tersedia"
+    var status: String = "Tersedia",
+    val ownerEmail: String? = null
 ) : Parcelable

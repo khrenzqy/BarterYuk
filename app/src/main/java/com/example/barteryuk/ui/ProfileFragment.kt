@@ -30,8 +30,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = BarterAdapter(ArrayList()) { item ->
-            val action = ProfileFragmentDirections.actionProfileFragmentToDetailFragment(item)
+        val adapter = BarterAdapter(ArrayList(), showOwner = false) { item ->
+            val action = ProfileFragmentDirections.actionProfileFragmentToDetailFragment(item, true)
             findNavController().navigate(action)
         }
 
@@ -39,16 +39,20 @@ class ProfileFragment : Fragment() {
         binding.rvMyItems.adapter = adapter
 
         viewModel.currentUser.observe(viewLifecycleOwner) { user ->
-            user?.let {
-                binding.tvUserName.text = it.name
-                binding.tvUserEmail.text = it.email
+            if (user != null) {
+                binding.tvUserName.text = user.name
+                binding.tvUserEmail.text = user.email
             }
         }
 
         viewModel.barterItems.observe(viewLifecycleOwner) { items ->
-            // Simulasikan daftar barang milik user (misal: ambil 2 barang terakhir)
-            val userItems = items.takeLast(2) 
-            adapter.updateData(userItems)
+            val currentUserEmail = viewModel.currentUser.value?.email
+            val userItems = items.filter { it.ownerEmail == currentUserEmail }
+            adapter.updateData(ArrayList(userItems))
+        }
+
+        binding.btnAddItem.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_addItemFragment)
         }
 
         binding.btnLogout.setOnClickListener {

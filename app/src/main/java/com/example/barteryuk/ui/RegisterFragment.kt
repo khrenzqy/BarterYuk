@@ -34,12 +34,16 @@ class RegisterFragment : Fragment() {
             val password = binding.etPassword.text.toString()
 
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                viewModel.register(name, email)
+                viewModel.register(name, email, password)
                 Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             } else {
                 Toast.makeText(requireContext(), "Harap isi semua kolom", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.tvToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 

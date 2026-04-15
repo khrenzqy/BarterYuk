@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.barteryuk.databinding.FragmentDetailBinding
 
@@ -27,16 +28,30 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val item = args.item
+        val isMyItem = args.isMyItem
+
         binding.tvDetailName.text = item.name
         binding.tvDetailCategory.text = "Kategori: ${item.category}"
         binding.tvDetailValue.text = "Rp ${item.estimatedValue}"
         binding.tvDetailCondition.text = "Kondisi: ${item.condition}"
         binding.tvDetailDescription.text = item.description
 
-        binding.btnBarter.setOnClickListener {
-            Toast.makeText(requireContext(), "Permintaan barter untuk ${item.name} telah diajukan!", Toast.LENGTH_LONG).show()
-            binding.btnBarter.isEnabled = false
-            binding.btnBarter.text = "Permintaan Terkirim"
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        if (isMyItem) {
+            binding.btnBarter.text = "Edit Barang"
+            binding.btnBarter.setOnClickListener {
+                Toast.makeText(requireContext(), "Fitur Edit (Dummy) untuk ${item.name}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            binding.btnBarter.text = "Ajukan Barter"
+            binding.btnBarter.setOnClickListener {
+                Toast.makeText(requireContext(), "Permintaan barter untuk ${item.name} telah diajukan!", Toast.LENGTH_LONG).show()
+                binding.btnBarter.isEnabled = false
+                binding.btnBarter.text = "Permintaan Terkirim"
+            }
         }
     }
 

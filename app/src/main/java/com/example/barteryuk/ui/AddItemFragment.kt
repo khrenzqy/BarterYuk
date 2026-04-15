@@ -55,7 +55,14 @@ class AddItemFragment : Fragment() {
             }
 
             if (name.isNotEmpty() && description.isNotEmpty() && value.isNotEmpty()) {
-                val newItem = BarterItem(name, description, value, category, condition)
+                val newItem = BarterItem(
+                    name = name,
+                    description = description,
+                    estimatedValue = value,
+                    category = category,
+                    condition = condition,
+                    ownerEmail = viewModel.currentUser.value?.email
+                )
                 viewModel.addItem(newItem)
                 Toast.makeText(requireContext(), "Barang berhasil ditambahkan", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()

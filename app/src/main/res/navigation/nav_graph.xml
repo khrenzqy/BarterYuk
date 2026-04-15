@@ -28,6 +28,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -62,6 +65,9 @@
             android:id="@+id/action_profileFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
         <action
+            android:id="@+id/action_profileFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
             android:id="@+id/action_profileFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment"
             app:popUpTo="@id/nav_graph"
@@ -82,5 +88,9 @@
         <argument
             android:name="item"
             app:argType="com.example.barteryuk.model.BarterItem" />
+        <argument
+            android:name="isMyItem"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

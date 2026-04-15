@@ -83,5 +83,13 @@
             tools:listitem="@layout/item_barter"
             app:layout_constraintTop_toBottomOf="@id/tvMyItemsLabel" />
 
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Tambah Barang"
+            app:layout_constraintTop_toBottomOf="@id/rvMyItems" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
