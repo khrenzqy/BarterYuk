@@ -9,6 +9,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.barteryuk.R
 import com.example.barteryuk.databinding.FragmentWelcomeBinding
 
+/**
+ * WelcomeFragment adalah halaman awal aplikasi (Splash/Welcome Screen).
+ * Memberikan pilihan bagi pengguna untuk masuk (Login) atau membuat akun baru (Register).
+ */
 class WelcomeFragment : Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null
@@ -25,10 +29,12 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Tombol Login: Mengarahkan pengguna ke halaman Login
         binding.btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
         }
 
+        // Tombol Register: Mengarahkan pengguna ke halaman Pendaftaran
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
         }

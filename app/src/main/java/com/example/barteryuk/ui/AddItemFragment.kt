@@ -13,6 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.barteryuk.databinding.FragmentAddItemBinding
 import com.example.barteryuk.model.BarterItem
 
+/**
+ * AddItemFragment menyediakan formulir bagi pengguna untuk menambahkan barang baru yang ingin dibarter.
+ */
 class AddItemFragment : Fragment() {
 
     private var _binding: FragmentAddItemBinding? = null
@@ -30,23 +33,26 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup Spinner Kategori
+        // Konfigurasi Spinner untuk pilihan kategori barang
         val categories = arrayOf("Elektronik", "Fashion", "Hobi", "Furniture", "Lainnya")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = adapter
 
+        // Simulasi fitur upload gambar
         binding.btnUploadImage.setOnClickListener {
             Toast.makeText(requireContext(), "Fitur Upload Gambar (Dummy) Berhasil", Toast.LENGTH_SHORT).show()
             binding.ivItemImage.setImageResource(android.R.drawable.ic_menu_gallery)
         }
 
+        // Logika penyimpanan barang baru
         binding.btnSave.setOnClickListener {
             val name = binding.etName.text.toString()
             val description = binding.etDescription.text.toString()
             val value = binding.etValue.text.toString()
             val category = binding.spinnerCategory.selectedItem.toString()
             
+            // Mendapatkan teks dari RadioButton yang terpilih (Baru/Bekas)
             val selectedConditionId = binding.rgCondition.checkedRadioButtonId
             val condition = if (selectedConditionId != -1) {
                 view.findViewById<RadioButton>(selectedConditionId).text.toString()
@@ -54,17 +60,23 @@ class AddItemFragment : Fragment() {
                 "Bekas"
             }
 
+            // Validasi: memastikan field utama tidak kosong
             if (name.isNotEmpty() && description.isNotEmpty() && value.isNotEmpty()) {
+                // Membuat objek BarterItem baru dengan data dari form
                 val newItem = BarterItem(
                     name = name,
                     description = description,
                     estimatedValue = value,
                     category = category,
                     condition = condition,
-                    ownerEmail = viewModel.currentUser.value?.email
+                    ownerEmail = viewModel.currentUser.value?.email // Menandai pemilik barang
                 )
+                
+                // Menambahkan ke list di ViewModel
                 viewModel.addItem(newItem)
                 Toast.makeText(requireContext(), "Barang berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                
+                // Kembali ke fragment sebelumnya (ProfileFragment)
                 findNavController().navigateUp()
             } else {
                 Toast.makeText(requireContext(), "Harap isi semua kolom", Toast.LENGTH_SHORT).show()

@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.barteryuk.R
 import com.example.barteryuk.databinding.FragmentRegisterBinding
 
+/**
+ * RegisterFragment menangani proses pendaftaran akun pengguna baru.
+ */
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
@@ -28,20 +31,26 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Tombol Daftar: Mengambil input dan menyimpannya ke ViewModel
         binding.btnRegister.setOnClickListener {
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
+            // Validasi: Semua kolom wajib diisi
             if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                // Menyimpan data user baru ke database dummy di ViewModel
                 viewModel.register(name, email, password)
                 Toast.makeText(requireContext(), "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+                
+                // Setelah daftar sukses, diarahkan ke halaman Login
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             } else {
                 Toast.makeText(requireContext(), "Harap isi semua kolom", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Link navigasi cepat jika user sudah memiliki akun
         binding.tvToLogin.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
