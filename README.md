@@ -1,8 +1,10 @@
 #👤 Nama 
-- Kharenina Rizqy Putri Nugroho - 24082010144 -
+- Ahmad Taufik Hayaza (24082010136)
+- Kharenina Rizqy Putri Nugroho (24082010144)
+- Ima Muhimmah Falasifa (24082010148)
+- Farel Fazriel Marbella (24082010159)
 
-
-
+---
 
 # 📦 BarterYuk - Aplikasi Tukar Barang (Marketplace Barter)
 
