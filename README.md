@@ -1,3 +1,9 @@
+#👤 Nama 
+- Kharenina Rizqy Putri Nugroho - 24082010144 -
+
+
+
+
 # 📦 BarterYuk - Aplikasi Tukar Barang (Marketplace Barter)
 
 **BarterYuk** adalah aplikasi Android berbasis Kotlin yang dirancang untuk mempermudah pengguna dalam melakukan tukar-menukar barang (barter) secara modern. Aplikasi ini menggunakan arsitektur MVVM (Model-View-ViewModel) dan komponen Jetpack terbaru untuk performa yang optimal dan kode yang terstruktur.
